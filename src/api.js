@@ -1,11 +1,11 @@
 import axios from 'axios';
 
 const ApiContagem = axios.create({
-    baseURL: 'http://172.16.0.150:3500/api'
+    baseURL: 'http://localhost:3500/api'
 });
 
 const ApiDB = axios.create({
-    baseURL: 'http://172.16.0.150:5000/api'
+    baseURL: 'http://localhost:5000/api'
 });
 
 
@@ -38,8 +38,13 @@ export const get_info_cam = async (ponto) => {
 }
 
 export const reset_counter = async (ponto) => { 
-    return await get(ApiContagem, '/reset', {params: {ponto: ponto}});
+    return await get(ApiContagem, '/restartMachine', {params: {ponto: ponto, zerar: true}});
 }
+
+export const restart_machine = async (ponto) => { 
+    return await get(ApiContagem, '/restartMachine', {params: {ponto: ponto, zerar: false}});
+}
+
 
 export const watch_stream = async (cam) => {
     return await get(ApiContagem, '/watch', {params: {cam: cam}});
@@ -53,8 +58,8 @@ export const remove_cam = async (ponto) => {
     return await get(ApiContagem, '/deletecamContagem', {params: {ponto: ponto}});
 }
 
-export const start_contagem = async (ponto, p1, p2) => {
-    return await get(ApiContagem, '/startContagem', {params: {ponto: ponto, p1: p1, p2: p2}});
+export const start_contagem = async (ponto, p1, p2, direction) => {
+    return await get(ApiContagem, '/startContagem', {params: {ponto: ponto, p1: p1, p2: p2, direction: direction}});
 }
 
 export const stop_contagem = async (ponto) => {
