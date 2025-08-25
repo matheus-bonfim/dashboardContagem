@@ -8,6 +8,9 @@ const ApiDB = axios.create({
     baseURL: 'http://localhost:5000/api'
 });
 
+const ApiBackendLPR = axios.create({
+    baseURL: 'http://189.4.2.61:5000/api'
+})
 
 const get = async (api, path, params=null) => {
     
@@ -46,8 +49,8 @@ export const restart_machine = async (ponto) => {
 }
 
 
-export const watch_stream = async (cam) => {
-    return await get(ApiContagem, '/watch', {params: {cam: cam}});
+export const watch_stream = async (ip, ponto, tipo) => {
+    return await get(ApiBackendLPR, '/getRTSP_Stream', {params: {ip, ponto, tipo}});
 }
 
 export const add_cam = async (ponto) => {
@@ -55,11 +58,18 @@ export const add_cam = async (ponto) => {
 }
 
 export const remove_cam = async (ponto) => {
-    return await get(ApiContagem, '/deletecamContagem', {params: {ponto: ponto}});
+    const res = await get(ApiContagem, '/deletecamContagem', {params: {ponto: ponto}});
+    await remove_stream(ponto);
+    return res; 
 }
 
-export const start_contagem = async (ponto, p1, p2, direction) => {
-    return await get(ApiContagem, '/startContagem', {params: {ponto: ponto, p1: p1, p2: p2, direction: direction}});
+export const remove_stream = async (ponto) => {
+    return await get(ApiBackendLPR, '/removeStream', {params: {ponto: ponto}});
+}
+
+export const start_contagem = async (ponto, p1, p2, direction, fromHour, toHour, ip, tipo) => {
+    console.log(fromHour, toHour);
+    return await get(ApiContagem, '/startContagem', {params: {ponto: ponto, p1: p1, p2: p2, direction: direction, fromHour: fromHour, toHour: toHour, ip: ip, tipo: tipo}});
 }
 
 export const stop_contagem = async (ponto) => {

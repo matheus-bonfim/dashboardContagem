@@ -36,24 +36,24 @@ function Home() {
 
 
   // Função para buscar os dados
-  const viewConfStream = async (cam) => {
-    const ports = await watch_stream(cam);
-    const url = `http://localhost:3000/videoconf?ponto=${cam}&port=${ports['webrtcAddress']}`;
+  const viewConfStream = async (ip, ponto, tipo) => {
+    const payload = await watch_stream(ip, ponto, tipo);
+    const url = `http://localhost:3000/videoconf?ponto=${ponto}&url_webrtc=${payload.url_webrtc}`;
     //const url = `http://localhost:3000/video2`;
 
     window.open(url, "_blank");
   }
 
-  const handleWatchStream = async (cam) => {
-    const url = await getStreamURL(cam);
+  const handleWatchStream = async (ip, ponto, tipo) => {
+    const url = await getStreamURL(ip, ponto, tipo);
     if (url) window.open(url, "_blank");
     else alert("erro");
   }
 
-  const getStreamURL = async (cam) => {
-    const ports = await watch_stream(cam);
-    if(ports && ports['webrtcAddress']){
-      return `http://localhost:${ports['webrtcAddress']}/${cam}`;
+  const getStreamURL = async (ip, ponto, tipo) => {
+    const payload = await watch_stream(ip, ponto, tipo);
+    if(payload){
+      return payload.url_webrtc;
     }
     else return false;
   }
@@ -94,9 +94,9 @@ function Home() {
                 <li><button className="button" onClick={() => {HandleResetCounter(item.ponto)}}>Zerar Contador</button></li>
               </div>
               }
-              <li><button className="button" onClick={() => {handleWatchStream(item.ponto)}}>Visualizar</button></li>
+              <li><button className="button" onClick={() => {handleWatchStream(item.ip, item.ponto, item.tipo)}}>Visualizar</button></li>
               
-              <li><button className="button" onClick={() => {viewConfStream(item.ponto)}}>Configurar</button></li>
+              <li><button className="button" onClick={() => {viewConfStream(item.ip, item.ponto, item.tipo)}}>Configurar</button></li>
               
               
             </ul>
