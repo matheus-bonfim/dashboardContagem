@@ -1,12 +1,12 @@
 import axios from 'axios';
 
 const ApiContagem = axios.create({
-    baseURL: 'http://localhost:3500/api'
+    baseURL: 'http://189.4.2.61:3500/api'
 });
 
-const ApiDB = axios.create({
-    baseURL: 'http://localhost:5000/api'
-});
+// const ApiDB = axios.create({
+//     baseURL: 'http://localhost:5000/api'
+// });
 
 const ApiBackendLPR = axios.create({
     baseURL: 'http://189.4.2.61:5000/api'
@@ -78,7 +78,7 @@ export const stop_contagem = async (ponto) => {
 
 // DB
 
-export const get_cam_ip = async (ponto) => {
-    return await get(ApiDB, '/ipcam', {params: {ponto: ponto}})
-}
+// export const get_cam_ip = async (ponto) => {
+//     return await get(ApiDB, '/ipcam', {params: {ponto: ponto}})
+// }
 

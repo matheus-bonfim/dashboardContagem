@@ -1,30 +1,10 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { get_cam_ip, get_table_info, reset_counter, watch_stream } from '../api.js';
+import { get_table_info, reset_counter, watch_stream } from '../api.js';
 import { useState, useEffect, useCallback } from 'react';
 import ConfirmPopUp from './popup/confirm.js';
 import "../styles/style.css"
 
-
-
-
-/*const ip_cams = {
-  ch1: '192.168.24.37:554',
-  ch2: '172.16.0.180:554',
-  ch3: '192.168.24.29:554',
-  ch4: '172.16.0.181:554'
- }
-*/
-//handleRequest('cam3', '192.168.24.29:554');
-//handleRequest('cam2', '192.168.24.3:554');
-//handleRequest('cam4', '172.16.0.180:554')
-
-//handleRequest('cam4', '172.16.0.180:554')
-
-//handleRequest('cam1', '172.16.0.181:554');
-
-
-
-
+const IP_PUBLIC = '189.4.2.61';
 
 function Home() {
   
@@ -32,13 +12,10 @@ function Home() {
   const [ponto, setPonto] = useState(null);
   const [displayConfirmPopUp, setDisplayConfirmPopUp] = useState(false);
 
-
-
-
   // Função para buscar os dados
   const viewConfStream = async (ip, ponto, tipo) => {
     const payload = await watch_stream(ip, ponto, tipo);
-    const url = `http://localhost:3000/videoconf?ponto=${ponto}&url_webrtc=${payload.url_webrtc}`;
+    const url = `http://${IP_PUBLIC}:3000/videoconf?ponto=${ponto}&url_webrtc=${payload.url_webrtc}`;
     //const url = `http://localhost:3000/video2`;
 
     window.open(url, "_blank");
@@ -134,7 +111,7 @@ function Home() {
       }
   }, []);
 
-  // Busca inicial + intervalo para atualização
+
   useEffect(() => {
     fetchInfo(); // chamada inicial
     const intervalId = setInterval(fetchInfo, 1000); // atualiza a cada segundo
