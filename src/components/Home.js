@@ -13,8 +13,8 @@ function Home() {
   const [displayConfirmPopUp, setDisplayConfirmPopUp] = useState(false);
 
   // Função para buscar os dados
-  const viewConfStream = async (ip, ponto, tipo) => {
-    const payload = await watch_stream(ip, ponto, tipo);
+  const viewConfStream = async (ip, ponto, tipo, fabricante) => {
+    const payload = await watch_stream(ip, ponto, tipo, fabricante);
     const url = `http://${IP_PUBLIC}:3000/videoconf?ponto=${ponto}&url_webrtc=${payload.url_webrtc}`;
     //const url = `http://localhost:3000/video2`;
 
@@ -78,7 +78,7 @@ function Home() {
               }
               <li><button className="button" onClick={() => {handleWatchStream(item.ip, item.ponto, item.tipo)}}>Visualizar</button></li>
               
-              <li><button className="button" onClick={() => {viewConfStream(item.ip, item.ponto, item.tipo)}}>Configurar</button></li>
+              <li><button className="button" onClick={() => {viewConfStream(item.ip, item.ponto, item.tipo, item.fabricante)}}>Configurar</button></li>
               
               
             </ul>

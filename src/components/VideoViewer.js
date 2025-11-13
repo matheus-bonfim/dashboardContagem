@@ -62,7 +62,7 @@ function VideoViewer() {
         // Pequeno atraso opcional para garantir que o servidor processou a remoção
         await new Promise(resolve => setTimeout(resolve, 200)); 
 
-        const payload = await watch_stream(data.ip, ponto, data.tipo);
+        const payload = await watch_stream(data.ip, ponto, data.tipo, data.fabricante);
         if (payload && payload.url_webrtc) {
             setStreamURL(payload.url_webrtc); // Atualiza a URL da stream
         } else {
