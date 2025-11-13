@@ -50,3 +50,8 @@
   width: 50%;
   word-wrap: break-word;
 }
+
+.sidebar {
+  position: fixed;
+  left: 0;
+}

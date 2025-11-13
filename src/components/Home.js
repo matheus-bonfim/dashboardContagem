@@ -21,6 +21,11 @@ function Home() {
     window.open(url, "_blank");
   }
 
+  const openContagem = async () => {
+    const url = 'http://189.4.2.61:3000/manager';
+    window.open(url, "_blank");
+  }
+
   const handleWatchStream = async (ip, ponto, tipo) => {
     const url = await getStreamURL(ip, ponto, tipo);
     if (url) window.open(url, "_blank");
@@ -122,7 +127,9 @@ function Home() {
     <div className="contagem">
       
       <h1>Contagem</h1>
-
+      <div className='sidebar'>
+        <button onClick={openContagem}>Configurações</button>
+      </div>
       <div style={{textAlign:'center'}} >
         
         {info}
