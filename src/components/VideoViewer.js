@@ -57,6 +57,7 @@ function VideoViewer() {
       setIsRestarting(true); // Ativa o modo de carregamento na UI
       try {
         const [data] = pontoData.current;
+        console.log("tome aqui: ",data);
         await remove_stream(ponto);
         
         // Pequeno atraso opcional para garantir que o servidor processou a remoção
@@ -222,6 +223,7 @@ function VideoViewer() {
   
     return (
       <div className='container'>
+   
         <div className='video'>
           {/* JSX MODIFICADO: renderização condicional da stream */}
           {isRestarting ? (
