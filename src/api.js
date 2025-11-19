@@ -49,8 +49,8 @@ export const restart_machine = async (ponto) => {
 }
 
 
-export const watch_stream = async (ip, ponto, tipo, fabricante) => {
-    return await get(ApiBackendLPR, '/getRTSP_Stream', {params: {ip, ponto, tipo, fabricante}});
+export const watch_stream = async (ip, ponto, tipo, fabricante, streamNumber) => {
+    return await get(ApiBackendLPR, '/getRTSP_Stream', {params: {ip, ponto, tipo, fabricante, streamNumber}});
 }
 
 export const add_cam = async (ponto) => {

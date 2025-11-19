@@ -51,6 +51,7 @@ function VideoViewer() {
     const [hour, setHour] = useState({start: '', end: ''});
     const [ShowHours, setShowHours] = useState(false);
     const pontoData = useRef(null);
+    const streamNumber = useRef(1);
 
     // FUNÇÃO MODIFICADA: para gerenciar o estado de reinício
     const restartStream = async (ponto) => {
@@ -63,7 +64,7 @@ function VideoViewer() {
         // Pequeno atraso opcional para garantir que o servidor processou a remoção
         await new Promise(resolve => setTimeout(resolve, 200)); 
 
-        const payload = await watch_stream(data.ip, ponto, data.tipo, data.fabricante);
+        const payload = await watch_stream(data.ip, ponto, data.tipo, data.fabricante, streamNumber);
         if (payload && payload.url_webrtc) {
             setStreamURL(payload.url_webrtc); // Atualiza a URL da stream
         } else {
@@ -267,6 +268,12 @@ function VideoViewer() {
               <option value="ab">A -&gt; B</option>
               <option value="ba">B -&gt; A</option>
             </select>
+          </p>
+          <p><strong>Número da stream</strong>
+            <label htmlFor='streamNumber'></label>
+            <input type="number" onChange={e => {streamNumber.current = e.target.value} }></input>
+            
+          
           </p>
           <div>
             {ShowHours && 
