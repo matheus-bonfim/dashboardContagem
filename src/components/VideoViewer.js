@@ -211,7 +211,8 @@ function VideoViewer() {
         
         await new Promise(resolve => setTimeout(resolve, 500)); 
 
-        const payload = await watch_stream(data.ip, ponto, data.tipo, data.fabricante, streamNumber);
+        const payload = await watch_stream(data.ip, ponto, data.tipo, data.fabricante, streamNumber.current);
+        console.log("Aqui o streamNumber:",streamNumber.current);
         if (payload && payload.url_webrtc) {
             setStreamURL(payload.url_webrtc);
         } else {
